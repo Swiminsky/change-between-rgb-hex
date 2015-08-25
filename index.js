@@ -1,15 +1,25 @@
 var cgModel = Regular.extend({
-	template: "<input r-model={color.o} placeholder='Input Here' autofocus='autofocus'/>" +
-		"<div class='btn' on-click={this.show(color.o)}>DO CHANGE</div>" +
-		"<div class='u-res'>{color.n}</div>"+
-		"<div class='u-plt'><div class='u-tip'>{show.tip}</div>"+
-		"{#list palette as item}"+
-		"<div class='u-plt-i' style={item.name==\"CLOUDS\"?'color:#aaa;background:'+item.color:'background:'+item.color}>"+
-		"<div>{item.color}</div>"+
-		"<div>{item.name}</div>"+
-		"</div>{/list}</div>",
+	template: 
+		"<div class='u-topbar' style='background:{color.bg}'></div>"+
+		"<input r-model={color.o} placeholder='Input Here' autofocus='autofocus' style='border:2px solid {color.bg}'/>" +
+		"<div class='btn' on-click={this.show(color.o)} style='background:{color.bg}'>DO CHANGE</div>" +
+		"{#if show.status}"+
+		"<div class='u-res' style='background:{color.n}'>{color.n}</div>"+
+		"{#else}"+
+		"<div class='u-err'>{show.err}</div>"+
+		"{/if}"+
+		"<div class='u-plt'>"+
+			"<div class='u-tip'>{show.tip}</div>"+
+			"{#list palette as item}"+
+				"<div class='u-plt-i' style={item.name==\"CLOUDS\"?'color:#aaa;background:'+item.color:'background:'+item.color}>"+
+				"<div>{item.color}</div>"+
+				"<div>{item.name}</div>"+
+				"</div>"+
+			"{/list}"+
+		"</div>",
 	show: function(v) {
 		var r = '',
+			err = '',
 			_k = /#/.test(v),
 			_u = v.split(",");
 		//hex2rgb
@@ -17,14 +27,18 @@ var cgModel = Regular.extend({
 			for (var i = 1; i < 4; i++) {
 				r += parseInt(v.charAt(i).concat(v.charAt(i)), 16) + ",";
 			}
-			r = r.slice(0, -1);
+			r = "rgb("+r.slice(0, -1)+")";
+			// this.data.color.bg = r;
+			this.data.show.status = true;
 		}
 		//hex2rgb
 		else if (_k && v.length == 7) {
 			for (var i = 1; i < 7; i += 2) {
 				r += parseInt(v.substr(i, 2), 16) + ",";
 			}
-			r = r.slice(0, -1);
+			r = "rgb("+r.slice(0, -1)+")";
+			// this.data.color.bg = r;
+			this.data.show.status = true;
 		}
 		//rgb2hex
 		else if (!_k && _u.length == 3) {
@@ -33,10 +47,14 @@ var cgModel = Regular.extend({
 				r += n >= 0 && n < 16 ? "0" + n.toString(16) : n.toString(16);
 			}
 			r = "#" + r;
+			// this.data.color.bg = r;
+			this.data.show.status = true;
 		}
 		//input error
 		else {
-			r = "格式错误，请重新输入";
+			this.data.show.err = "TYPE ERROR!";
+			this.data.color.bg = "#10ab86";
+			this.data.show.status = false;
 		}
 		this.data.color.o = '';
 		this.data.color.n = r;
@@ -47,11 +65,14 @@ var cg = new cgModel({
 	data: {
 		show: {
 			ex: "",
+			status: "",
+			err: "",
 			tip: "Here is a great standard flat ui color palette for you !"
 		},
 		color: {
 			o: "",
-			n: ""
+			n: "",
+			bg: "#10ab86"
 		},
 		palette: [
 			{

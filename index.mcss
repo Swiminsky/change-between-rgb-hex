@@ -23,6 +23,7 @@
         color: #10ab86;
         text-align: center;
         box-sizing:border-box;
+        transition:0.5s;
         border: 2px solid #10ab86;
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     }
@@ -39,17 +40,27 @@
         height: 40px;
         font-size: 14px;
         line-height: 40px;
-        background: #10ab86;
         color: #fff;
+        transition:0.5s;
         vertical-align: bottom;
         cursor: pointer;
     }
     .u-res{
-        width: 175px;
-        height: 40px;
-
+        width: 350px;
+        height: 60px;
         font-size: 18px;
-        margin:30px auto;
+        line-height: 60px;
+        color: #fff;
+        margin:20px auto;
+        font-family: inherit;
+    }
+    .u-err{
+        width: 350px;
+        height: 60px;
+        font-size: 18px;
+        line-height: 60px;
+        color: #E74C3C;
+        margin:20px auto;
         font-family: inherit;
     }
     .u-plt{
@@ -70,6 +81,9 @@
             margin: 5px;
             color: #fff;
             font-size: 14px;
+            div{
+                line-height:1.5;
+            }
         }
     }
 }
