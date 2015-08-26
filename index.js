@@ -2,16 +2,27 @@ var cgModel = Regular.extend({
 	template: 
 		"<div class='u-topbar' style='background:{color.bg}'></div>"+
 		"<input r-model={color.o} placeholder='Input Here' autofocus='autofocus' style='border:2px solid {color.bg}'/>" +
-		"<div class='btn' on-click={this.show(color.o)} style='background:{color.bg}'>DO CHANGE</div>" +
+		"<div class='btn' on-click={this.show(color.o)}>DO CHANGE</div>" +
+		"<div class='u-ex'>Let's try : "+
+		"{#list show.ex as ex}" +
+			"<span class='u-ex-item' on-click={this.show(ex)}>{ex}</span>"+
+		"{/list}"+
+		"</div>"+
 		"{#if show.status}"+
 		"<div class='u-res' style='background:{color.n}'>{color.n}</div>"+
 		"{#else}"+
 		"<div class='u-err'>{show.err}</div>"+
 		"{/if}"+
+		"<div class='u-history'>"+
+			"<div class='u-tip' r-hide='{!show.history.length}'>{show.historyTip}</div>"+
+			"{#list show.history as item}"+
+			"<div class='u-his-item' style='background:{item}'>{item}</div>"+
+			"{/list}"+
+		"</div>"+
 		"<div class='u-plt'>"+
 			"<div class='u-tip'>{show.tip}</div>"+
 			"{#list palette as item}"+
-				"<div class='u-plt-i' style={item.name==\"CLOUDS\"?'color:#aaa;background:'+item.color:'background:'+item.color}>"+
+				"<div class='u-plt-i' style={item.name==\"CLOUDS\"?'color:#aaa;background:'+item.color:'background:'+item.color} on-click={this.show(item.color)}>"+
 				"<div>{item.color}</div>"+
 				"<div>{item.name}</div>"+
 				"</div>"+
@@ -21,7 +32,8 @@ var cgModel = Regular.extend({
 		var r = '',
 			err = '',
 			_k = /#/.test(v),
-			_u = v.split(",");
+			_u = v.split(","),
+			_h = this.data.show.history;
 		//hex2rgb
 		if (_k && v.length == 4) {
 			for (var i = 1; i < 4; i++) {
@@ -29,6 +41,7 @@ var cgModel = Regular.extend({
 			}
 			r = "rgb("+r.slice(0, -1)+")";
 			// this.data.color.bg = r;
+			_h.unshift(v);
 			this.data.show.status = true;
 		}
 		//hex2rgb
@@ -38,6 +51,7 @@ var cgModel = Regular.extend({
 			}
 			r = "rgb("+r.slice(0, -1)+")";
 			// this.data.color.bg = r;
+			_h.unshift(v);
 			this.data.show.status = true;
 		}
 		//rgb2hex
@@ -48,6 +62,7 @@ var cgModel = Regular.extend({
 			}
 			r = "#" + r;
 			// this.data.color.bg = r;
+			_h.unshift("rgb("+v+")");
 			this.data.show.status = true;
 		}
 		//input error
@@ -56,18 +71,26 @@ var cgModel = Regular.extend({
 			this.data.color.bg = "#10ab86";
 			this.data.show.status = false;
 		}
+		if (_h.length > 8) {
+			this.data.show.history = _h.slice(0,8);
+		}
 		this.data.color.o = '';
 		this.data.color.n = r;
 	}
 })
-
 var cg = new cgModel({
 	data: {
 		show: {
-			ex: "",
-			status: "",
+			ex: [
+				"#aaa",
+				"#10ab86",
+				"66,139,202"
+			],
+			status: 0,
 			err: "",
-			tip: "Here is a great standard flat ui color palette for you !"
+			tip: "Here is a great standard flat ui color palette for you !",
+			historyTip: 'HISTORY',
+			history: []
 		},
 		color: {
 			o: "",

@@ -6,6 +6,7 @@
 	margin: 0 auto;
     text-align: center;
     font-family: STXihei;
+    position: relative;
     ::-webkit-input-placeholder{
         color:#BDC3C7;
         font-family: inherit;
@@ -18,7 +19,7 @@
         width: 175px;
         height: 40px;
         display: inline-block;
-        font-size: 20px;
+        font-size: 18px;
         margin-top: 30px;
         color: #10ab86;
         text-align: center;
@@ -41,9 +42,31 @@
         font-size: 14px;
         line-height: 40px;
         color: #fff;
+        background: #10ab86;
         transition:0.5s;
         vertical-align: bottom;
         cursor: pointer;
+    }
+    .btn:hover{
+        background: rgba(16,171,134,0.7);
+    }
+    .u-ex{
+        width: 350px;
+        margin: 2px auto;
+        font-size: 16px;
+        text-align: left;
+        color: #666;
+        font-family: inherit; 
+        .u-ex-item{
+            color:#10ab86;
+            margin-right: 15px;
+            cursor: pointer;
+            transition:0.25s;
+        }
+        .u-ex-item:hover{
+            color:rgba(16,171,134,0.7);
+            text-decoration: underline;
+        }
     }
     .u-res{
         width: 350px;
@@ -52,6 +75,7 @@
         line-height: 60px;
         color: #fff;
         margin:20px auto;
+        transition:0.5s;
         font-family: inherit;
     }
     .u-err{
@@ -66,6 +90,7 @@
     .u-plt{
         max-width: 720px;
         margin: 0 auto;
+        text-align: left;
         .u-tip{
             text-align: left;
             margin: 10px 8px;
@@ -73,17 +98,49 @@
             color: #666;
         }
         .u-plt-i{
-            width: 140px;
-            height: 40px;
+            width: 168px;
+            height: 68px;
             display: inline-block;
-            text-align: left;
+            cursor: pointer;
             padding: 14px;
             margin: 5px;
             color: #fff;
             font-size: 14px;
+            box-sizing:border-box;
             div{
                 line-height:1.5;
             }
+        }
+    }
+    .u-history{
+        max-width: 720px;
+        margin: 0 auto;
+        text-align: left;
+        .u-tip{
+            text-align: left;
+            margin: 10px 8px;
+            font-size: 20px;
+            color: #666;
+        }
+        .u-his-item{
+            width: 168px;
+            height: 68px;
+            display: inline-block;
+            cursor: pointer;
+            padding:24px 14px;
+            margin: 5px;
+            color: #fff;
+            transition:0.5s;
+            font-size: 14px;
+            box-sizing:border-box;
+        }
+    }
+    @media screen and (max-width: 720px){
+        .u-plt{
+            text-align: center;
+        }        
+        .u-history{
+            text-align: center;
         }
     }
 }
