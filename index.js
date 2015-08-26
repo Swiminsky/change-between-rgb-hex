@@ -54,21 +54,25 @@ var cgModel = Regular.extend({
 			_h.unshift(v);
 			this.data.show.status = true;
 		}
-		//rgb2hex
+		//rgb2hex  //todo
 		else if (!_k && _u.length == 3) {
+			this.data.show.status = true;
 			for (var i = 0; i < 3; i++) {
-				var n = new Number(_u[i]);
-				r += n >= 0 && n < 16 ? "0" + n.toString(16) : n.toString(16);
+				var re = new RegExp(/^[0-2][0-5]{0,2}$/);
+				if (re.test(_u[i])) {
+					var n = new Number(_u[i]);
+					r += n >= 0 && n < 16 ? "0" + n.toString(16) : n.toString(16);
+				}
+				else {
+					this.data.show.status = false;
+					break;
+				}
 			}
 			r = "#" + r;
-			// this.data.color.bg = r;
 			_h.unshift("rgb("+v+")");
-			this.data.show.status = true;
 		}
 		//input error
 		else {
-			this.data.show.err = "TYPE ERROR!";
-			this.data.color.bg = "#10ab86";
 			this.data.show.status = false;
 		}
 		if (_h.length > 8) {
@@ -87,7 +91,7 @@ var cg = new cgModel({
 				"66,139,202"
 			],
 			status: 0,
-			err: "",
+			err: "TYPE ERROR!",
 			tip: "Here is a great standard flat ui color palette for you !",
 			historyTip: 'HISTORY',
 			history: []
