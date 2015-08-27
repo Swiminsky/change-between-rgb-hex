@@ -126,7 +126,6 @@
             width: 168px;
             height: 68px;
             display: inline-block;
-            cursor: pointer;
             padding:24px 14px;
             margin: 5px;
             color: #fff;
