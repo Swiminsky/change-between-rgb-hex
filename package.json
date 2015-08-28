@@ -1,0 +1,19 @@
+{
+  "name": "rgb2hex",
+  "version": "1.0.0",
+  "description": "A easy tool online to change the color type between RGB and HEX .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Swiminsky/Change-between-rgb-hex.git"
+  },
+  "author": "swiminsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Swiminsky/Change-between-rgb-hex/issues"
+  },
+  "homepage": "https://github.com/Swiminsky/Change-between-rgb-hex#readme"
+}
