@@ -103,7 +103,7 @@ var cgModel = Regular.extend({
 					break;
 				}
 			}
-			if (this.data.show.status == true) {
+			if (this.data.show.status === true) {
 				r = "#" + r;
 				_h.unshift("rgb("+v+")");
 			}
